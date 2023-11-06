@@ -4,15 +4,19 @@
   "description": "Cool books library",
   "main": "app.js",
   "scripts": {
+    "start": "live-server",
     "build": "rollup"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com:ministrov/books-library-spa-js.git"
   },
   "author": "Anton Zhilin",
   "license": "ISC",
   "dependencies": {
     "rollup": "^4.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.53.0"
   }
 }
