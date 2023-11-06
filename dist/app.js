@@ -1,10 +1,21 @@
 (function () {
   'use strict';
 
-  function a() {
-    console.log('Hello');
+  class App {
+    routes = [
+      {path: "", view: null}
+    ];
+
+    constructor() {
+      window.addEventListener('hashchange', this.route.bind(this));
+      this.route();
+    }
+
+    route() {
+
+    }
   }
 
-  a();
+  new App();
 
 })();
