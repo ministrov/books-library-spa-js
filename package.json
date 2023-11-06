@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Cool books library",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "live-server",
-    "build": "rollup"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
     "rollup": "^4.3.0"
   },
   "devDependencies": {
-    "eslint": "^8.53.0"
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "eslint": "^8.53.0",
+    "rollup-plugin-import-css": "^3.3.5"
   }
 }
