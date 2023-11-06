@@ -3,16 +3,23 @@
   "version": "1.0.0",
   "description": "Cool books library",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "build": "rollup"
+    "start": "live-server",
+    "build": "rollup -c --watch"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com:ministrov/books-library-spa-js.git"
   },
   "author": "Anton Zhilin",
   "license": "ISC",
   "dependencies": {
     "rollup": "^4.3.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "eslint": "^8.53.0",
+    "rollup-plugin-import-css": "^3.3.5"
   }
 }
