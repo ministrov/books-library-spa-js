@@ -40,6 +40,7 @@
     ];
 
     constructor() {
+      console.log(this);
       window.addEventListener('hashchange', this.route.bind(this));
       this.route();
     }
@@ -97,16 +98,21 @@
 
   const product = { id: 1, name: 'Bread', count: 1 };
 
-  const Cart = function(product) {
-    this.product = product;
+  const Cart = function() {
+    console.log(this);
     this.products = [];
   };
 
   Cart.prototype.addProduct = function(product) {
+    console.log(this);
+    if (this.products.find(product => product.id === product.id)) {
+      return;
+    }
     this.products.push(product);
   };
 
-  const cart = new Cart(product);
-  console.log(cart.addProduct(product));
+  const cart = new Cart();
+  cart.addProduct(product);
+  console.log(cart, undefined);
 
 })();
