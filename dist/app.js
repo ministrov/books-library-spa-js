@@ -95,4 +95,18 @@
 
   // console.log(myDate instanceof Date);
 
+  const product = { id: 1, name: 'Bread', count: 1 };
+
+  const Cart = function(product) {
+    this.product = product;
+    this.products = [];
+  };
+
+  Cart.prototype.addProduct = function(product) {
+    this.products.push(product);
+  };
+
+  const cart = new Cart(product);
+  console.log(cart.addProduct(product));
+
 })();
