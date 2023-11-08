@@ -1057,7 +1057,6 @@
     };
 
     constructor() {
-      console.log(this);
       window.addEventListener('hashchange', this.route.bind(this));
       this.route();
     }
