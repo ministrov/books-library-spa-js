@@ -6,6 +6,10 @@ class App {
     {path: "", view: MainView}
   ];
 
+  appState = {
+    favorites: []
+  };
+
   constructor() {
     console.log(this);
     window.addEventListener('hashchange', this.route.bind(this));
@@ -17,7 +21,7 @@ class App {
       this.currentView.destroy();
     }
     const view = this.routes.find(route => route.path == location.hash).view;
-    this.currentView = new view();
+    this.currentView = new view(this.appState);
     this.currentView.render();
   }
 }
@@ -63,21 +67,21 @@ new App();
 
 // console.log(myDate instanceof Date);
 
-const product = { id: 1, name: 'Bread', count: 1 };
+// const product = { id: 1, name: 'Bread', count: 1 };
 
-const Cart = function() {
-  console.log(this);
-  this.products = [];
-}
+// const Cart = function() {
+//   console.log(this);
+//   this.products = [];
+// }
 
-Cart.prototype.addProduct = function(product) {
-  console.log(this);
-  if (this.products.find(product => product.id === product.id)) {
-    return;
-  }
-  this.products.push(product);
-}
+// Cart.prototype.addProduct = function(product) {
+//   console.log(this);
+//   if (this.products.find(product => product.id === product.id)) {
+//     return;
+//   }
+//   this.products.push(product);
+// }
 
-const cart = new Cart();
-cart.addProduct(product);
-console.log(cart, this);
+// const cart = new Cart();
+// cart.addProduct(product);
+// console.log(cart, this);
