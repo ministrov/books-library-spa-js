@@ -1045,7 +1045,7 @@
           <img src="/static/search.svg" alt="Поиск" />
           Поиск книг
         </a>
-        <a class="menu__item" href="#">
+        <a class="menu__item" href="#favorites">
           <img src="/static/favorites.svg" alt="Избранное" />
           Избранное
 

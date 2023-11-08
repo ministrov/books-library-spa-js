@@ -5,9 +5,13 @@
 
 body {
   min-width: 320px;
-  max-width: 1440px;
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
-  background-color: tomato;
+  color: var(--black);
+}
+
+#root {
+  max-width: 800px;
+  margin: 0 auto;
 }
