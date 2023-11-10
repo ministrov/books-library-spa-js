@@ -1162,77 +1162,77 @@
 
   // console.log(myDate instanceof Date);
 
-  const product = { id: 1, name: 'Bread', count: 1 };
+  // const product = { id: 1, name: 'Bread', count: 1 };
 
-  const Cart = function() {
-    console.log(this);
-    this.products = [];
-  };
+  // const Cart = function() {
+  //   console.log(this);
+  //   this.products = [];
+  // }
 
-  Cart.prototype.addProduct = function(product) {
-    console.log(this);
-    if (this.products.find(product => product.id === product.id)) {
-      return;
-    }
-    this.products.push(product);
-  };
+  // Cart.prototype.addProduct = function(product) {
+  //   console.log(this);
+  //   if (this.products.find(product => product.id === product.id)) {
+  //     return;
+  //   }
+  //   this.products.push(product);
+  // }
 
-  Cart.prototype.increaseProductCount = function(id) {
-    this.products.map(product => {
-      if (product.id == id)  {
-        product.count++;
-        return product;
-      }
-      return product;
-    });
+  // Cart.prototype.increaseProductCount = function(id) {
+  //   this.products.map(product => {
+  //     if (product.id == id)  {
+  //       product.count++;
+  //       return product;
+  //     }
+  //     return product;
+  //   });
     
-  };
+  // }
 
-  Cart.prototype.decreaseProductCount = function(id) {
-    this.products
-      .map(product => {
-        if (product.id == id)  {
-          product.count--;
-          return product;
-        }
-        return product;
-      })
-      .filter(product => product.count > 0);
+  // Cart.prototype.decreaseProductCount = function(id) {
+  //   this.products
+  //     .map(product => {
+  //       if (product.id == id)  {
+  //         product.count--;
+  //         return product;
+  //       }
+  //       return product;
+  //     })
+  //     .filter(product => product.count > 0);
     
-  };
+  // }
 
-  const cart = new Cart();
-  cart.addProduct(product);
-  cart.increaseProductCount(1);
-  cart.decreaseProductCount(1);
-  cart.decreaseProductCount(1);
-  console.log(cart);
+  // const cart = new Cart();
+  // cart.addProduct(product);
+  // cart.increaseProductCount(1);
+  // cart.decreaseProductCount(1);
+  // cart.decreaseProductCount(1);
+  // console.log(cart);
 
-  const Car = function(brandName) {
-    this.brandName = brandName;
-  };
+  // const Car = function(brandName) {
+  //   this.brandName = brandName;
+  // }
 
-  Car.prototype.isNew = true;
+  // Car.prototype.isNew = true;
 
-  const bmw = new Car('Bmw');
+  // const bmw = new Car('Bmw');
 
-  console.log(bmw);
-  console.log(Car.prototype.__proto__);
-  console.log(bmw.isNew);
+  // console.log(bmw);
+  // console.log(Car.prototype.__proto__);
+  // console.log(bmw.isNew);
 
-  class CarClass {
-    isDrive = false;
-    constructor(brandName) {
-      this.brandName = brandName;
-    }
+  // class CarClass {
+  //   isDrive = false;
+  //   constructor(brandName) {
+  //     this.brandName = brandName;
+  //   }
 
-    drive() {
-      this.isDrive = true;
-    }
-  }
+  //   drive() {
+  //     this.isDrive = true;
+  //   }
+  // }
 
-  const lada = new CarClass('Lada');
+  // const lada = new CarClass('Lada');
 
-  console.log(lada);
+  // console.log(lada);
 
 })();
