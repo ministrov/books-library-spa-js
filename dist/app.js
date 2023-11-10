@@ -1073,7 +1073,7 @@
           type="text" 
           placeholder="Найти книгу или автора...." 
           class="search__input" 
-          value=${this.state.searchQuery ? this.state.searchQuery : ''}
+          value="${this.state.searchQuery ? this.state.searchQuery : ''}"
         />
         <img src="static/search.svg" alt="Иконка поиска" />
       </div>
