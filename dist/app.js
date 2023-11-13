@@ -1065,6 +1065,12 @@
       this.state = state;
     }
 
+    search() {
+      const value = this.el.querySelector('input').value;
+      this.state.searchQuery = value;
+      console.log(this.state);
+    }
+
     render() {
       this.el.classList.add('search');
       this.el.innerHTML = `
@@ -1080,6 +1086,33 @@
       <button aria-label="Искать">
         <img src="static/search-white.svg" alt="Иконка поиска" />
       </button>
+    `;
+
+      this.el.querySelector('button').addEventListener('click', this.search.bind(this));
+      this.el.querySelector('input').addEventListener('keydown', (event) => {
+        if (event.code === 'Enter') {
+          this.search();
+        }
+      });
+      return this.el;
+    }
+  }
+
+  class CardList extends DivComponent {
+    constructor(appState, parentState) {
+      super();
+      this.appState = appState;
+      this.parentState = parentState;
+    }
+
+    render() {
+      if (this.parentState.loading) {
+        this.el.innerHTML = `<div class="card_list__loader">Загрузка...</div>`;
+        return this.el;
+      }
+      this.el.classList.add('card_list');
+      this.el.innerHTML = `
+      <h1>Найдено книг - ${this.parentState.list.length}</h1>
     `;
 
       return this.el;
@@ -1098,6 +1131,7 @@
       super();
       this.appState = appState;
       this.appState = onChange(this.appState, this.appStateHook.bind(this));
+      this.state = onChange(this.state, this.stateHook.bind(this));
       this.setTitle = 'Поиск книг';
     }
 
@@ -1107,9 +1141,31 @@
       }
     }
 
+    async stateHook(path) {
+      if (path === 'searchQuery') {
+        this.state.loading = true;
+        const data = await this.loadList(this.state.searchQuery, this.state.offset);
+        this.state.loading = false;
+        console.log(path);
+        this.state.list = data.docs;
+      }
+
+      if (path === 'list' || path === 'loading') {
+        console.log(path);
+        this.render();
+      }
+    }
+
+    async loadList(q, offset) {
+      const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
+
+      return res.json();
+    }
+
     render() {
       const main = document.createElement('div');
       main.append(new Search(this.state).render());
+      main.append(new CardList(this.appState, this.state).render());
       this.app.innerHTML = '';
       this.app.append(main);
       this.renderHeader();
@@ -1151,137 +1207,52 @@
 
   new App();
 
-  // const a = [1];
-
-  // console.dir(a);
-
-  // const User = function(email, password) {
-  //   this.email = email;
-  //   this.password = password;
+  // const Car = function(brandName) {
+  //   this.brandName = brandName;
   // }
 
-  // const user1 = new User('a@a.ru', '123');
+  // Car.prototype.isNew = true;
 
-  // console.log(user1);
-  // console.log(user1 instanceof User);
+  // const bmw = new Car('Bmw');
 
-  // const Book = function(title, author) {
-  //   this.title = title;
-  //   this.author = author;
-  //   this.isRead = false;
-  // }
+  // console.log(bmw);
+  // console.log(Car.prototype.__proto__);
+  // console.log(bmw.isNew);
 
-  // Book.prototype.read = function() {
-  //   this.isRead = true;
-  // }
+  // class CarClass {
+  //   isDrive = false;
 
-  // const lordOfTheRing = new Book('Lord of the Ring', 'Tolkien');
-  // console.log(lordOfTheRing);
-  // console.log(lordOfTheRing.__proto__);
-  // console.log(lordOfTheRing instanceof Book);
-  // console.log(Object.prototype.isPrototypeOf.call(Book.prototype, lordOfTheRing));
-  // console.log(Object.prototype.hasOwnProperty.call(lordOfTheRing, 'author'));
-
-  // const myDate = new Date();
-
-  // console.log(myDate);
-  // console.log(myDate.getDate());
-  // console.log(myDate.getUTCDate());
-
-  // console.log(myDate instanceof Date);
-
-  // const product = { id: 1, name: 'Bread', count: 1 };
-
-  // const Cart = function() {
-  //   console.log(this);
-  //   this.products = [];
-  // }
-
-  // Cart.prototype.addProduct = function(product) {
-  //   console.log(this);
-  //   if (this.products.find(product => product.id === product.id)) {
-  //     return;
+  //   constructor(brandName) {
+  //     this.brandName = brandName;
   //   }
-  //   this.products.push(product);
+
+  //   drive() {
+  //     this.isDrive = true;
+  //   }
   // }
 
-  // Cart.prototype.increaseProductCount = function(id) {
-  //   this.products.map(product => {
-  //     if (product.id == id)  {
-  //       product.count++;
-  //       return product;
+  // const lada = new CarClass('Lada');
+
+  // console.log(lada);
+  // console.log(lada.__proto__);
+
+
+  // const task = {
+  //   title: 'Task1',
+  //   dueTo: new Date('2024/01/01'),
+
+  //   get isOverDue() {
+  //     return this.dueTo < new Date();
+  //   },
+
+  //   set isOverDue(isOverDueTask) {
+  //     if (!isOverDueTask) {
+  //       this.dueTo = new Date();
   //     }
-  //     return product;
-  //   });
-    
+  //   }
   // }
 
-  // Cart.prototype.decreaseProductCount = function(id) {
-  //   this.products
-  //     .map(product => {
-  //       if (product.id == id)  {
-  //         product.count--;
-  //         return product;
-  //       }
-  //       return product;
-  //     })
-  //     .filter(product => product.count > 0);
-    
-  // }
-
-  // const cart = new Cart();
-  // cart.addProduct(product);
-  // cart.increaseProductCount(1);
-  // cart.decreaseProductCount(1);
-  // cart.decreaseProductCount(1);
-  // console.log(cart);
-
-  const Car = function(brandName) {
-    this.brandName = brandName;
-  };
-
-  Car.prototype.isNew = true;
-
-  const bmw = new Car('Bmw');
-
-  console.log(bmw);
-  console.log(Car.prototype.__proto__);
-  console.log(bmw.isNew);
-
-  class CarClass {
-    isDrive = false;
-
-    constructor(brandName) {
-      this.brandName = brandName;
-    }
-
-    drive() {
-      this.isDrive = true;
-    }
-  }
-
-  const lada = new CarClass('Lada');
-
-  console.log(lada);
-  console.log(lada.__proto__);
-
-
-  const task = {
-    title: 'Task1',
-    dueTo: new Date('2024/01/01'),
-
-    get isOverDue() {
-      return this.dueTo < new Date();
-    },
-
-    set isOverDue(isOverDueTask) {
-      if (!isOverDueTask) {
-        this.dueTo = new Date();
-      }
-    }
-  };
-
-  console.log(task.isOverDue);
-  task.isOverDue = false;
+  // console.log(task.isOverDue);
+  // task.isOverDue = false;
 
 })();
