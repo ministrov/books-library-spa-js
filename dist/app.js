@@ -1068,6 +1068,7 @@
     search() {
       const value = this.el.querySelector('input').value;
       this.state.searchQuery = value;
+      console.log(this.state);
     }
 
     render() {
@@ -1147,10 +1148,10 @@
         this.state.loading = false;
         console.log(path);
         this.state.list = data.docs;
-        console.log(this.state.list);
       }
 
       if (path === 'list' || path === 'loading') {
+        console.log(path);
         this.render();
       }
     }

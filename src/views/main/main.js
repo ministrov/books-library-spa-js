@@ -33,10 +33,10 @@ export class MainView extends AbstractView {
       this.state.loading = false;
       console.log(path);
       this.state.list = data.docs;
-      console.log(this.state.list);
     }
 
     if (path === 'list' || path === 'loading') {
+      console.log(path);
       this.render();
     }
   }
