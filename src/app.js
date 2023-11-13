@@ -114,29 +114,52 @@ new App();
 // cart.decreaseProductCount(1);
 // console.log(cart);
 
-// const Car = function(brandName) {
-//   this.brandName = brandName;
-// }
+const Car = function(brandName) {
+  this.brandName = brandName;
+}
 
-// Car.prototype.isNew = true;
+Car.prototype.isNew = true;
 
-// const bmw = new Car('Bmw');
+const bmw = new Car('Bmw');
 
-// console.log(bmw);
-// console.log(Car.prototype.__proto__);
-// console.log(bmw.isNew);
+console.log(bmw);
+console.log(Car.prototype.__proto__);
+console.log(bmw.isNew);
 
-// class CarClass {
-//   isDrive = false;
-//   constructor(brandName) {
-//     this.brandName = brandName;
-//   }
+class CarClass {
+  isDrive = false;
 
-//   drive() {
-//     this.isDrive = true;
-//   }
-// }
+  constructor(brandName) {
+    this.brandName = brandName;
+  }
 
-// const lada = new CarClass('Lada');
+  drive() {
+    this.isDrive = true;
+  }
+}
 
-// console.log(lada);
+const lada = new CarClass('Lada');
+
+console.log(lada);
+console.log(lada.__proto__);
+
+
+const task = {
+  title: 'Task1',
+  dueTo: new Date('2024/01/01'),
+
+  get isOverDue() {
+    return this.dueTo < new Date();
+  },
+
+  set isOverDue(isOverDueTask) {
+    if (!isOverDueTask) {
+      this.dueTo = new Date();
+    }
+  }
+}
+
+console.log(task.isOverDue);
+task.isOverDue = false;
+
+
