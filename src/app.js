@@ -29,137 +29,52 @@ class App {
 
 new App();
 
-// const a = [1];
-
-// console.dir(a);
-
-// const User = function(email, password) {
-//   this.email = email;
-//   this.password = password;
+// const Car = function(brandName) {
+//   this.brandName = brandName;
 // }
 
-// const user1 = new User('a@a.ru', '123');
+// Car.prototype.isNew = true;
 
-// console.log(user1);
-// console.log(user1 instanceof User);
+// const bmw = new Car('Bmw');
 
-// const Book = function(title, author) {
-//   this.title = title;
-//   this.author = author;
-//   this.isRead = false;
-// }
+// console.log(bmw);
+// console.log(Car.prototype.__proto__);
+// console.log(bmw.isNew);
 
-// Book.prototype.read = function() {
-//   this.isRead = true;
-// }
+// class CarClass {
+//   isDrive = false;
 
-// const lordOfTheRing = new Book('Lord of the Ring', 'Tolkien');
-// console.log(lordOfTheRing);
-// console.log(lordOfTheRing.__proto__);
-// console.log(lordOfTheRing instanceof Book);
-// console.log(Object.prototype.isPrototypeOf.call(Book.prototype, lordOfTheRing));
-// console.log(Object.prototype.hasOwnProperty.call(lordOfTheRing, 'author'));
-
-// const myDate = new Date();
-
-// console.log(myDate);
-// console.log(myDate.getDate());
-// console.log(myDate.getUTCDate());
-
-// console.log(myDate instanceof Date);
-
-// const product = { id: 1, name: 'Bread', count: 1 };
-
-// const Cart = function() {
-//   console.log(this);
-//   this.products = [];
-// }
-
-// Cart.prototype.addProduct = function(product) {
-//   console.log(this);
-//   if (this.products.find(product => product.id === product.id)) {
-//     return;
+//   constructor(brandName) {
+//     this.brandName = brandName;
 //   }
-//   this.products.push(product);
+
+//   drive() {
+//     this.isDrive = true;
+//   }
 // }
 
-// Cart.prototype.increaseProductCount = function(id) {
-//   this.products.map(product => {
-//     if (product.id == id)  {
-//       product.count++;
-//       return product;
+// const lada = new CarClass('Lada');
+
+// console.log(lada);
+// console.log(lada.__proto__);
+
+
+// const task = {
+//   title: 'Task1',
+//   dueTo: new Date('2024/01/01'),
+
+//   get isOverDue() {
+//     return this.dueTo < new Date();
+//   },
+
+//   set isOverDue(isOverDueTask) {
+//     if (!isOverDueTask) {
+//       this.dueTo = new Date();
 //     }
-//     return product;
-//   });
-  
+//   }
 // }
 
-// Cart.prototype.decreaseProductCount = function(id) {
-//   this.products
-//     .map(product => {
-//       if (product.id == id)  {
-//         product.count--;
-//         return product;
-//       }
-//       return product;
-//     })
-//     .filter(product => product.count > 0);
-  
-// }
-
-// const cart = new Cart();
-// cart.addProduct(product);
-// cart.increaseProductCount(1);
-// cart.decreaseProductCount(1);
-// cart.decreaseProductCount(1);
-// console.log(cart);
-
-const Car = function(brandName) {
-  this.brandName = brandName;
-}
-
-Car.prototype.isNew = true;
-
-const bmw = new Car('Bmw');
-
-console.log(bmw);
-console.log(Car.prototype.__proto__);
-console.log(bmw.isNew);
-
-class CarClass {
-  isDrive = false;
-
-  constructor(brandName) {
-    this.brandName = brandName;
-  }
-
-  drive() {
-    this.isDrive = true;
-  }
-}
-
-const lada = new CarClass('Lada');
-
-console.log(lada);
-console.log(lada.__proto__);
-
-
-const task = {
-  title: 'Task1',
-  dueTo: new Date('2024/01/01'),
-
-  get isOverDue() {
-    return this.dueTo < new Date();
-  },
-
-  set isOverDue(isOverDueTask) {
-    if (!isOverDueTask) {
-      this.dueTo = new Date();
-    }
-  }
-}
-
-console.log(task.isOverDue);
-task.isOverDue = false;
+// console.log(task.isOverDue);
+// task.isOverDue = false;
 
 
