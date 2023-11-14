@@ -20,6 +20,73 @@
     }
   }
 
+  class DivComponent {
+    constructor() {
+      this.el = document.createElement('div');
+    }
+
+    render() {
+      this.el;
+    }
+  }
+
+  class Header extends DivComponent {
+    constructor(appState) {
+      super();
+      this.appState = appState;
+    }
+
+    render() {
+      this.el.innerHTML = '';
+      this.el.classList = 'header';
+      this.el.innerHTML = `
+      <div>
+        <a class="logo" href="#">
+          <img src="/static/logo.svg" alt="Логотип" />
+        </a>
+      </div>
+      <div class="menu">
+        <a class="menu__item" href="#">
+          <img src="/static/search.svg" alt="Поиск" />
+          Поиск книг
+        </a>
+        <a class="menu__item" href="#favorites">
+          <img src="/static/favorites.svg" alt="Избранное" />
+          Избранное
+
+          <div class="menu__counter">
+            ${this.appState.favorites.length}
+          </div>
+        </a>
+      </div>
+    `;
+      return this.el;
+    }
+  }
+
+  class BookView extends AbstractView {
+  	constructor(bookState) {
+  		super();
+  		this.bookState = bookState;
+  		// this.appState = onChange(this.appState, this.appStateHook.bind(this));
+  		this.setTitle('Страница конкретной книги');
+  	}
+
+  	render() {
+  		const main = document.createElement('div');
+  		main.innerHTML = `
+			<h1>Страница конкретной книги</h1>
+		`;
+  		this.app.append(main);
+  		this.renderHeader();
+  	}
+
+  	renderHeader() {
+  		const header = new Header(this.appState).render();
+  		this.app.prepend(header);
+  	}
+  }
+
   const PATH_SEPARATOR = '.';
   const TARGET = Symbol('target');
   const UNSUBSCRIBE = Symbol('unsubscribe');
@@ -1017,50 +1084,6 @@
   onChange.target = proxy => (proxy && proxy[TARGET]) || proxy;
   onChange.unsubscribe = proxy => proxy[UNSUBSCRIBE] || proxy;
 
-  class DivComponent {
-    constructor() {
-      this.el = document.createElement('div');
-    }
-
-    render() {
-      this.el;
-    }
-  }
-
-  class Header extends DivComponent {
-    constructor(appState) {
-      super();
-      this.appState = appState;
-    }
-
-    render() {
-      this.el.innerHTML = '';
-      this.el.classList = 'header';
-      this.el.innerHTML = `
-      <div>
-        <a class="logo" href="#">
-          <img src="/static/logo.svg" alt="Логотип" />
-        </a>
-      </div>
-      <div class="menu">
-        <a class="menu__item" href="#">
-          <img src="/static/search.svg" alt="Поиск" />
-          Поиск книг
-        </a>
-        <a class="menu__item" href="#favorites">
-          <img src="/static/favorites.svg" alt="Избранное" />
-          Избранное
-
-          <div class="menu__counter">
-            ${this.appState.favorites.length}
-          </div>
-        </a>
-      </div>
-    `;
-      return this.el;
-    }
-  }
-
   class Card extends DivComponent {
     constructor(appState, cardState) {
       super();
@@ -1069,54 +1092,64 @@
     }
 
     #addToFavorites() {
-  		this.appState.favorites.push(this.cardState);
-  	}
+      this.appState.favorites.push(this.cardState);
+    }
 
-  	#deleteFromFavorites() {
-  		this.appState.favorites = this.appState.favorites.filter(
-  			book => book.key !== this.cardState.key
-  		);
-  	}
+    #deleteFromFavorites() {
+      this.appState.favorites = this.appState.favorites.filter(
+        (book) => book.key !== this.cardState.key
+      );
+    }
 
     render() {
-      this.el.classList.add('card');
+      this.el.classList.add("card");
       const existInFavorites = this.appState.favorites.find(
-        book => book.key == this.cardState.key
+        (book) => book.key == this.cardState.key
       );
       this.el.innerHTML = `
 			<div class="card__image">
-        ${this.cardState.cover_edition_key ? `<img src="https://covers.openlibrary.org/b/olid/${this.cardState.cover_edition_key}-M.jpg" alt="Обложка" />` : 'Фото не найдено'
-        }
-			</div>
-			<div class="card__info">
-				<div class="card__tag">
-					${this.cardState.subject ? this.cardState.subject[0] : 'Не задано'}
-				</div>
-				<div class="card__name">
-					${this.cardState.title}
-				</div>
-				<div class="card__author">
-					${this.cardState.author_name ? this.cardState.author_name[0] : 'Не задано'}
-				</div>
-				<div class="card__footer">
-					<button class="button__add ${existInFavorites ? 'button__active' : ''}">
-						${existInFavorites
-							? '<img src="/static/favorites.svg" />'
-							: '<img src="/static/favorites-white.svg" />'
-						}
-					</button>
-				</div>
-			</div>
+          ${
+            this.cardState.cover_edition_key
+              ? `<img src="https://covers.openlibrary.org/b/olid/${this.cardState.cover_edition_key}-M.jpg" alt="Обложка" />`
+              : "Фото не найдено"
+          }
+        </div>
+        <div class="card__info">
+          <div class="card__tag">
+            ${this.cardState.subject ? this.cardState.subject[0] : "Не задано"}
+          </div>
+          <div class="card__name">
+            ${this.cardState.title}
+          </div>
+          <div class="card__author">
+            ${
+              this.cardState.author_name
+                ? this.cardState.author_name[0]
+                : "Не задано"
+            }
+          </div>
+          <div class="card__footer">
+            <button class="button__add ${
+              existInFavorites ? "button__active" : ""
+            }">
+              ${
+                existInFavorites
+                  ? '<img src="/static/favorites.svg" />'
+                  : '<img src="/static/favorites-white.svg" />'
+              }
+            </button>
+          </div>
+        </div>
 		`;
       if (existInFavorites) {
-  			this.el
-  				.querySelector('button')
-  				.addEventListener('click', this.#deleteFromFavorites.bind(this));
-  		} else {
-  			this.el
-  				.querySelector('button')
-  				.addEventListener('click', this.#addToFavorites.bind(this));
-  		}
+        this.el
+          .querySelector("button")
+          .addEventListener("click", this.#deleteFromFavorites.bind(this));
+      } else {
+        this.el
+          .querySelector("button")
+          .addEventListener("click", this.#addToFavorites.bind(this));
+      }
       return this.el;
     }
   }
@@ -1167,6 +1200,7 @@
   		const main = document.createElement('div');
   		main.innerHTML = `
 			<h1>Избранное</h1>
+      ${this.appState.favorites <= 0 ? '<p>Нет никаких фильмов</p>' : ''}
 		`;
   		main.append(new CardList(this.appState, { list: this.appState.favorites }).render());
   		this.app.innerHTML = '';
@@ -1250,7 +1284,7 @@
     async stateHook(path) {
       if (path === 'searchQuery') {
         this.state.loading = true;
-        const data = await this.loadList(this.state.searchQuery, this.state.offset);
+        const data = await this.loadList(this.state.searchQuery, this.state.offset, this.limit);
         this.state.loading = false;
         console.log(data);
         this.state.numFound = data.numFound;
@@ -1263,7 +1297,7 @@
     }
 
     async loadList(q, offset) {
-      const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
+      const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=10&offset=${offset}`);
 
       return res.json();
     }
@@ -1294,6 +1328,7 @@
     routes = [
       {path: "", view: MainView},
       {path: "#favorites", view: FavoritesView},
+      {path: "#book", view: BookView}
     ];
 
     appState = {

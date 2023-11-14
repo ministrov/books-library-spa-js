@@ -25,6 +25,7 @@ export class FavoritesView extends AbstractView {
 		const main = document.createElement('div');
 		main.innerHTML = `
 			<h1>Избранное</h1>
+      ${this.appState.favorites <= 0 ? '<p>Нет никаких фильмов</p>' : ''}
 		`
 		main.append(new CardList(this.appState, { list: this.appState.favorites }).render());
 		this.app.innerHTML = '';

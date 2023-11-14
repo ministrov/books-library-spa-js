@@ -36,7 +36,7 @@ export class MainView extends AbstractView {
   async stateHook(path) {
     if (path === 'searchQuery') {
       this.state.loading = true;
-      const data = await this.loadList(this.state.searchQuery, this.state.offset);
+      const data = await this.loadList(this.state.searchQuery, this.state.offset, this.limit);
       this.state.loading = false;
       console.log(data);
       this.state.numFound = data.numFound;
@@ -49,7 +49,7 @@ export class MainView extends AbstractView {
   }
 
   async loadList(q, offset) {
-    const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
+    const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=10&offset=${offset}`);
 
     return res.json();
   }

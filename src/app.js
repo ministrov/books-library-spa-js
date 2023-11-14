@@ -1,4 +1,5 @@
 /* eslint-disable no-empty */
+import { BookView } from "./views/book/book";
 import { FavoritesView } from "./views/favorites/favorites";
 import { MainView } from "./views/main/main";
 
@@ -8,6 +9,7 @@ class App {
   routes = [
     {path: "", view: MainView},
     {path: "#favorites", view: FavoritesView},
+    {path: "#book", view: BookView}
   ];
 
   appState = {
