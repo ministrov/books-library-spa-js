@@ -3,10 +3,12 @@ import onChange from "on-change";
 import { Header } from "../../components/header/header.js";
 import { Search } from "../../components/search/search.js";
 import { CardList } from "../../components/card-list/card-list.js";
+import { Pagination } from "../../components/pagination/pagination.js";
 
 export class MainView extends AbstractView {
   state = {
     list: [],
+    numFound: 0,
     loading: false,
     searchQuery: undefined,
     offset: 0
@@ -20,37 +22,47 @@ export class MainView extends AbstractView {
     this.setTitle = 'Поиск книг';
   }
 
+  destroy() {
+    // Мы отписываемся от подписок на слежение за объектами состояния чтобы при переходе на другую страницу избежать утечек памяти
+    onChange.unsubscribe(this.appState);
+    onChange.unsubscribe(this.state);
+  }
+
   appStateHook(path) {
     if (path === 'favorites') {
-      console.log(path);
+      this.render();
     }
   }
 
   async stateHook(path) {
     if (path === 'searchQuery') {
       this.state.loading = true;
-      const data = await this.loadList(this.state.searchQuery, this.state.offset);
+      const data = await this.loadList(this.state.searchQuery, this.state.offset, this.limit);
       this.state.loading = false;
-      console.log(path);
+      console.log(data);
+      this.state.numFound = data.numFound;
       this.state.list = data.docs;
     }
 
     if (path === 'list' || path === 'loading') {
-      console.log(path);
       this.render();
     }
   }
 
   async loadList(q, offset) {
-    const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
+    const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=10&offset=${offset}`);
 
     return res.json();
   }
 
   render() {
     const main = document.createElement('div');
+    main.innerHTML = `
+      <h1>Найдено книг - ${this.state.numFound}</h1>
+    `;
     main.append(new Search(this.state).render());
     main.append(new CardList(this.appState, this.state).render());
+    main.append(new Pagination(this.numFound, this.limit).render())
     this.app.innerHTML = '';
     this.app.append(main);
     this.renderHeader();
