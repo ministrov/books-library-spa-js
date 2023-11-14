@@ -38,7 +38,7 @@
 
     render() {
       this.el.innerHTML = '';
-      this.el.classList = 'header';
+      this.el.classList.add('header');
       this.el.innerHTML = `
       <div>
         <a class="logo" href="#">
@@ -1252,6 +1252,31 @@
     }
   }
 
+  class Pagination extends DivComponent {
+
+    constructor(total, limit) {
+      super();
+      this.total = total;
+      this.limit = limit;
+    }
+
+    render() {
+      this.el.innerHTML = '';
+      this.el.classList.add('pagination');
+      this.el.innerHTML = `
+      <a class="pagination__link">
+        <img src="/static/prev.svg" alt="Предыдущая страница" />
+        Предыдущая страница
+      </a>
+      <a class="pagination__link">
+        Следующая страница
+        <img src="/static/next.svg" alt="Следующая страница" />
+      </a>
+    `;
+      return this.el;
+    }
+  }
+
   class MainView extends AbstractView {
     state = {
       list: [],
@@ -1309,6 +1334,7 @@
     `;
       main.append(new Search(this.state).render());
       main.append(new CardList(this.appState, this.state).render());
+      main.append(new Pagination(this.numFound, this.limit).render());
       this.app.innerHTML = '';
       this.app.append(main);
       this.renderHeader();

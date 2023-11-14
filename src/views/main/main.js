@@ -3,6 +3,7 @@ import onChange from "on-change";
 import { Header } from "../../components/header/header.js";
 import { Search } from "../../components/search/search.js";
 import { CardList } from "../../components/card-list/card-list.js";
+import { Pagination } from "../../components/pagination/pagination.js";
 
 export class MainView extends AbstractView {
   state = {
@@ -61,6 +62,7 @@ export class MainView extends AbstractView {
     `;
     main.append(new Search(this.state).render());
     main.append(new CardList(this.appState, this.state).render());
+    main.append(new Pagination(this.numFound, this.limit).render())
     this.app.innerHTML = '';
     this.app.append(main);
     this.renderHeader();
