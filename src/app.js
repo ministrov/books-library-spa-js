@@ -1,11 +1,13 @@
 /* eslint-disable no-empty */
+import { FavoritesView } from "./views/favorites/favorites";
 import { MainView } from "./views/main/main";
 
 // Компонент App, по сути играет роль роутера, для прехода по страницам , отслеживая хэш в адресной строке
 
 class App {
   routes = [
-    {path: "", view: MainView}
+    {path: "", view: MainView},
+    {path: "#favorites", view: FavoritesView},
   ];
 
   appState = {

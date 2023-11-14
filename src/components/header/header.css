@@ -6,6 +6,11 @@
   margin-bottom: 30px;
 }
 
+.logo {
+  display: flex;
+  text-decoration: none;
+}
+
 .menu {
   display: flex;
   align-items: center;

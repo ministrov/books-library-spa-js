@@ -21,7 +21,7 @@ export class Card extends DivComponent {
   render() {
     this.el.classList.add('card');
     const existInFavorites = this.appState.favorites.find(
-      b => b.key == this.cardState.key
+      book => book.key == this.cardState.key
     );
     this.el.innerHTML = `
 			<div class="card__image">
