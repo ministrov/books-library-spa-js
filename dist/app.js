@@ -65,10 +65,8 @@
   }
 
   class BookView extends AbstractView {
-  	constructor(bookState) {
+  	constructor() {
   		super();
-  		this.bookState = bookState;
-  		// this.appState = onChange(this.appState, this.appStateHook.bind(this));
   		this.setTitle('Страница конкретной книги');
   	}
 
@@ -82,9 +80,9 @@
   	}
 
   	renderHeader() {
-  		const header = new Header(this.appState).render();
-  		this.app.prepend(header);
-  	}
+      const header = new Header(this.appState).render();
+      this.app.prepend(header);
+    }
   }
 
   const PATH_SEPARATOR = '.';

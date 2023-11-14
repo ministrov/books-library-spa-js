@@ -3,10 +3,8 @@ import { AbstractView } from '../../common/view.js';
 import { Header } from '../../components/header/header.js';
 
 export class BookView extends AbstractView {
-	constructor(bookState) {
+	constructor() {
 		super();
-		this.bookState = bookState;
-		// this.appState = onChange(this.appState, this.appStateHook.bind(this));
 		this.setTitle('Страница конкретной книги');
 	}
 
@@ -16,11 +14,11 @@ export class BookView extends AbstractView {
 			<h1>Страница конкретной книги</h1>
 		`
 		this.app.append(main);
-		this.renderHeader();
+		this.renderHeader()
 	}
 
 	renderHeader() {
-		const header = new Header(this.appState).render();
-		this.app.prepend(header);
-	}
+    const header = new Header(this.appState).render();
+    this.app.prepend(header);
+  }
 }
