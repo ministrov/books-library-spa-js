@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "live-server",
-    "build": "rollup -c --watch"
+    "build": "rollup"
   },
   "repository": {
     "type": "git",
