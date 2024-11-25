@@ -1,4 +1,4 @@
-import { DivComponent } from "../../common/div-component";
+import { DivComponent } from "../../common/div-component.js";
 import './header.css';
 
 export class Header extends DivComponent {
