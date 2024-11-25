@@ -1,5 +1,4 @@
 import { AbstractView } from '../../common/view.js';
-// import onChange from 'on-change';
 import { Header } from '../../components/header/header.js';
 
 export class BookView extends AbstractView {

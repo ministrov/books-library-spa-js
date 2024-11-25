@@ -1,4 +1,4 @@
-import { DivComponent } from "../../common/div-component";
+import { DivComponent } from "../../common/div-component.js";
 import "./card.css";
 
 export class Card extends DivComponent {

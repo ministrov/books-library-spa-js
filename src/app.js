@@ -1,15 +1,15 @@
-/* eslint-disable no-empty */
-import { BookView } from "./views/book/book";
-import { FavoritesView } from "./views/favorites/favorites";
-import { MainView } from "./views/main/main";
+import { BookView } from "./views/book/book.js";
+import { FavoritesView } from "./views/favorites/favorites.js";
+import { MainView } from "./views/main/main.js";
+import { TestComponet } from "./common/test.js";
 
 // Компонент App, по сути играет роль роутера, для прехода по страницам , отслеживая хэш в адресной строке
 
 class App {
   routes = [
-    {path: "", view: MainView},
-    {path: "#favorites", view: FavoritesView},
-    {path: "#book", view: BookView}
+    { path: "", view: MainView },
+    { path: "#favorites", view: FavoritesView },
+    { path: "#book", view: BookView }
   ];
 
   appState = {
@@ -34,4 +34,8 @@ class App {
 new App();
 
 console.log('click me');
+
+const test = new TestComponet();
+console.log(test.render());
+console.log(new TestComponet().showTextMessage());
 
